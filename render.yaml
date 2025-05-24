@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: minio-free
+    env: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: MINIO_ROOT_USER
+        value: minioadmin
+      - key: MINIO_ROOT_PASSWORD
+        value: minioadmin
+    disk:
+      name: minio-data
+      mountPath: /data
+      sizeGB: 1
+    healthCheckPath: /minio/health/ready
+    healthCheckInterval: 30s
+    healthCheckTimeout: 10s
+    healthCheckThreshold: 3
